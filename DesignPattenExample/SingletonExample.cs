@@ -9,6 +9,10 @@ namespace DesignPattenExample
 {
     class SingletonExample
     {
+        private string name;
+
+        public string Name { get { return name; } set { name = value; } }
+
         private static SingletonExample singleton;
         public static SingletonExample Instance() 
         { 
