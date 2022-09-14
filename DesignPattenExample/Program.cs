@@ -1,4 +1,5 @@
-﻿using DesignPattenExample.FactoryMethod;
+﻿using DesignPattenExample.AbstractFactory;
+using DesignPattenExample.FactoryMethod;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace DesignPattenExample
     {
         static void Main(string[] args)
         {
-            RunFactoryMethodPatten();
+            RunAbstractFactoryPatten();
         }
 
         /// <summary>
@@ -20,6 +21,8 @@ namespace DesignPattenExample
         /// </summary>
         static void RunSingletonPatten()
         {
+            // 하나의 객체를 전역으로 관리하기 위한 패턴
+
             SingletonExample singletonA = SingletonExample.Instance();
             singletonA.Name = "A로 설정";
             Console.WriteLine($"singletonA.Name = {singletonA.Name}");
@@ -33,8 +36,22 @@ namespace DesignPattenExample
             Console.WriteLine($"singletonC.Name = {singletonC.Name}");
         }
 
+        /// <summary>
+        /// 팩토리 메서드 패턴 예제
+        /// </summary>
         static void RunFactoryMethodPatten()
         {
+            /*
+             * 정의.
+             * 객체를 생성하기 위한 인터페이스를 정의, 클래스의 인스턴스를 만드는 행위를 서브 클래스에게 위임한다.
+             * 객체의 생성을 한군데에서 관리 할 수 있다.
+             * 
+             * 코드 설명.
+             * 1. UnitCreater 클래스는 유닛 객체를 반환하는 인터페이스를 가진다.
+             * 2. UnitCreater를 상속받은 클래스는 각자 생성할 객체가 정의되어있다.
+             * 3. UnitCreater에서 생성될 객체는 Unit이란 인터페이스를 가진다.
+             * 
+             */
             UnitCreater unitA = new Barracks();
             UnitCreater unitB = new Barracks();
 
@@ -44,6 +61,42 @@ namespace DesignPattenExample
             marineA.Move($"{marineA} : 12시 미네랄 뒤");
             marineB.Move($"{marineB} : {marineA.Name} 방향으로 이동중");
             marineA.Attack(marineB);
+        }
+
+        /// <summary>
+        /// 추상 팩토리 패턴 예제
+        /// </summary>
+        static void RunAbstractFactoryPatten()
+        {
+            /*
+             * 정의.
+             * 구체적인 클래스를 명시하지 않고도 연관되어 있거나 의존적인 객체 패밀리 생성을 위한 인터페이스를 제공한다.
+             * 
+             * 코드 설명.
+             * 1. Tribe(종족) 클래스는 생성할 건물을 인터페이스로 가진다.
+             * 2. Tribe 클래스를 상속받은 객체는 각자 생성할 건물이 정의되어있다.
+             * 3. 즉, 종족을 상속받은 객체는 어떤 건물을 생성할 수 있는지에 대한 패밀리를 가진다.
+             * 
+             */
+            Tribe tribeA = new Terran();
+            MainCenterBuilding mainCenterBuildingA = tribeA.CreateMainCenterBuilding();
+            PopulationBuilding populationBuildingA = tribeA.CreatePopulationBuilding();
+            populationBuildingA.Interact(mainCenterBuildingA);
+
+            Worker workerA = mainCenterBuildingA.CreateWorker();
+            workerA.DigMinerals();
+
+            Console.WriteLine();
+
+            Tribe tribeB = new Protoss();
+            MainCenterBuilding mainCenterBuildingB = tribeB.CreateMainCenterBuilding();
+            PopulationBuilding populationBuildingB = tribeB.CreatePopulationBuilding();
+            populationBuildingA.Interact(mainCenterBuildingB);
+
+
+            Worker workerB = mainCenterBuildingB.CreateWorker();
+            workerB.DigMinerals();
+            
         }
     }
 }
