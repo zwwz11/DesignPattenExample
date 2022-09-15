@@ -1,4 +1,5 @@
 ﻿using DesignPattenExample.AbstractFactory;
+using DesignPattenExample.Adapter;
 using DesignPattenExample.FactoryMethod;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace DesignPattenExample
     {
         static void Main(string[] args)
         {
-            RunAbstractFactoryPatten();
+            RunAdapterPatten();
         }
 
         /// <summary>
@@ -55,8 +56,8 @@ namespace DesignPattenExample
             UnitCreater unitA = new Barracks();
             UnitCreater unitB = new Barracks();
 
-            Unit marineA = unitA.CreateUnit("마린A");
-            Unit marineB = unitA.CreateUnit("마린B");
+            FactoryMethod.Unit marineA = unitA.CreateUnit("마린A");
+            FactoryMethod.Unit marineB = unitA.CreateUnit("마린B");
 
             marineA.Move($"{marineA} : 12시 미네랄 뒤");
             marineB.Move($"{marineB} : {marineA.Name} 방향으로 이동중");
@@ -97,6 +98,32 @@ namespace DesignPattenExample
             Worker workerB = mainCenterBuildingB.CreateWorker();
             workerB.DigMinerals();
             
+        }
+
+        /// <summary>
+        /// 어댑터 패턴 예제
+        /// </summary>
+        static void RunAdapterPatten()
+        {
+            /*
+             * 정의.
+             * 한 클래스의 인터페이스를 클라이언트에서 사용하고자 하는 다른 인터페이스로 변환한다.
+             * 인터페이스의 호환성 문제 때문에 같이 쓸 수 없는 클래스들을 연결해서 쓸 수 있다.
+             * 
+             * 코드 설명.
+             * NewUnit이란 새로운 유닛이 등장.
+             * 기존 유닛(OldUnit)과 새로운 유닛은 인터페이스 호환이 안됨.
+             * 그래서 Unit이라는 객체를 새로 추가. NewUnit을 상속받음
+             * Unit은 NewUnit의 인터페이스를 그대로 받으나 반환은 기존 OldUnit의 기능을 사용
+             * 결과적으로 OldUnit의 소스를 수정할 필요없이 새로운 인터페이스를 그대로 사용할 수 있게된다.
+             * 
+             */
+
+            NewUnit newUnit = new NewUnit();
+            NewUnit oldUnit = new Adapter.Unit();
+
+            newUnit.Move();
+            oldUnit.Move();
         }
     }
 }
