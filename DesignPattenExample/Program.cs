@@ -1,6 +1,7 @@
 ﻿using DesignPattenExample.AbstractFactory;
 using DesignPattenExample.Adapter;
 using DesignPattenExample.Decorator;
+using DesignPattenExample.Facade;
 using DesignPattenExample.FactoryMethod;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace DesignPattenExample
     {
         static void Main(string[] args)
         {
-            RunDecoratorPatten();
+            RunFacadePatten();
         }
 
         /// <summary>
@@ -152,6 +153,25 @@ namespace DesignPattenExample
             Beverage cafeMocha = new WhippedCream(cafeLatte);
 
             Console.WriteLine($"{cafeMocha.GetDescription()}, {cafeMocha.Cost()}");
+        }
+
+        static void RunFacadePatten()
+        {
+            /*
+             * 정의.
+             * 복잡한 내부 시스템 로직을 감추고 클라이언트가 쉽게 시스템에 접근할 수 있는 인터페이스를 제공한다.
+             * 
+             * 코드 설명.
+             * 데코레이터 패턴에서 만든 음료와, 데코레이터 객체를 이용.
+             * 아메리카노와 다른 음료를 만드려면 여러 객체를 생성하여 조합하여야함.
+             * 그 일련의 과정을 CoffeeMachine 객체 내부적으로 동작하도록 되어있으며 호출만 하면됨.
+             */
+            CoffeeMachine coffeeMachine = new CoffeeMachine();
+            Beverage americano = coffeeMachine.MakeAmericano();
+            Beverage cafeLatte = coffeeMachine.MakeCafeLatte();
+
+            Console.WriteLine($"아메리카노 : {americano.GetDescription()} / 가격 : {americano.Cost()}");
+            Console.WriteLine($"카페라떼   : {cafeLatte.GetDescription()} / 가격 : {cafeLatte.Cost()}");
         }
     }
 }
