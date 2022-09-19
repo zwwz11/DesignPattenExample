@@ -1,5 +1,6 @@
 ﻿using DesignPattenExample.AbstractFactory;
 using DesignPattenExample.Adapter;
+using DesignPattenExample.Decorator;
 using DesignPattenExample.FactoryMethod;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace DesignPattenExample
     {
         static void Main(string[] args)
         {
-            RunAdapterPatten();
+            RunDecoratorPatten();
         }
 
         /// <summary>
@@ -124,6 +125,33 @@ namespace DesignPattenExample
 
             newUnit.Move();
             oldUnit.Move();
+        }
+
+        /// <summary>
+        /// 데코레이터 패턴
+        /// </summary>
+        static void RunDecoratorPatten()
+        {
+            /*
+            * 정의.
+            * 객체의 결합을 통해 기능을 동적으로 유연하게 확장 할 수 있도록 해주는 패턴
+            * 기본 기능에 데코레이터 클래스를 통해 추가 기능을 조합하는 방식
+            * 
+            * 코드 설명.
+            * Beverage는 이름을 재정의하고 가격을 무조건 반환해야하는 구조임.
+            * Decorator은 이름을 무조건 재정의 해야함
+            * Espresso객체는 Beverage를 상속받아 가격과 이름이 정해짐
+            * Water, Milk, WhippedCream 객체는 Decorator객체를 상속받아 무조건 이름과 가격을 재정의해야하며
+            * 이 과정에서 커피가 만들어지는 과정처럼 보이게 기능을 구현할 수 있음.
+            * 
+            * 에스프레소(1500원)에 + 물(500원추가) + 우유(500원 추가) + 휘핑크림(500원 추가)
+            */
+            Beverage espresso = new Espresso();
+            Beverage americano = new Water(espresso);
+            Beverage cafeLatte = new Milk(americano);
+            Beverage cafeMocha = new WhippedCream(cafeLatte);
+
+            Console.WriteLine($"{cafeMocha.GetDescription()}, {cafeMocha.Cost()}");
         }
     }
 }
