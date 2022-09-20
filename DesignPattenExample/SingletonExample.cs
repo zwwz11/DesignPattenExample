@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPattenExample
+namespace DesignPatternExample
 {
     class SingletonExample
     {
@@ -14,9 +14,9 @@ namespace DesignPattenExample
         public string Name { get { return name; } set { name = value; } }
 
         private static SingletonExample singleton;
-        public static SingletonExample Instance() 
-        { 
-            if(singleton == null)
+        public static SingletonExample Instance()
+        {
+            if (singleton == null)
             {
                 singleton = new SingletonExample();
             }

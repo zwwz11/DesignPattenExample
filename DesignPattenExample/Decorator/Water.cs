@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPattenExample.Decorator
+namespace DesignPatternExample.Decorator
 {
     class Water : Decorator
     {
@@ -16,12 +16,12 @@ namespace DesignPattenExample.Decorator
 
         public override int Cost()
         {
-            return this.beverage.Cost() + 500;
+            return beverage.Cost() + 500;
         }
 
         public override string GetDescription()
         {
-            return $"{this.beverage.GetDescription()} + 물 추가";
+            return $"{beverage.GetDescription()} + 물 추가";
         }
     }
 }

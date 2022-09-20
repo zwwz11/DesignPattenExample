@@ -1,15 +1,15 @@
-﻿using DesignPattenExample.Decorator;
+﻿using DesignPatternExample.Decorator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPattenExample.Facade
+namespace DesignPatternExample.Facade
 {
     class CoffeeMachine
     {
-        
+
         public Beverage MakeAmericano()
         {
             Beverage espresso = new Espresso();

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPattenExample.Adapter
+namespace DesignPatternExample.Adapter
 {
     class OldUnit
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPattenExample.AbstractFactory
+namespace DesignPatternExample.AbstractFactory
 {
     abstract class Worker
     {

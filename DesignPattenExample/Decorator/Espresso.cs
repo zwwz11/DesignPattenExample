@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPattenExample.Decorator
+namespace DesignPatternExample.Decorator
 {
     class Espresso : Beverage
     {
         public Espresso()
         {
-            base.description = "에스프레소";
+            description = "에스프레소";
         }
 
         public override int Cost()

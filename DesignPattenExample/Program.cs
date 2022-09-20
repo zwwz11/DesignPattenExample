@@ -1,28 +1,31 @@
-﻿using DesignPattenExample.AbstractFactory;
-using DesignPattenExample.Adapter;
-using DesignPattenExample.Decorator;
-using DesignPattenExample.Facade;
-using DesignPattenExample.FactoryMethod;
+﻿using DesignPatternExample.AbstractFactory;
+using DesignPatternExample.AbstractFactory.Protoss;
+using DesignPatternExample.AbstractFactory.Terran;
+using DesignPatternExample.Adapter;
+using DesignPatternExample.Decorator;
+using DesignPatternExample.Facade;
+using DesignPatternExample.FactoryMethod;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Unit = DesignPatternExample.FactoryMethod.Unit;
 
-namespace DesignPattenExample
+namespace DesignPatternExample
 {
     class Program
     {
         static void Main(string[] args)
         {
-            RunFacadePatten();
+            RunFacadePattren();
         }
 
         /// <summary>
         /// 싱글톤 패턴 예제 
         /// </summary>
-        static void RunSingletonPatten()
+        static void RunSingletonPattren()
         {
             // 하나의 객체를 전역으로 관리하기 위한 패턴
 
@@ -42,7 +45,7 @@ namespace DesignPattenExample
         /// <summary>
         /// 팩토리 메서드 패턴 예제
         /// </summary>
-        static void RunFactoryMethodPatten()
+        static void RunFactoryMethodPattren()
         {
             /*
              * 정의.
@@ -58,8 +61,8 @@ namespace DesignPattenExample
             UnitCreater unitA = new Barracks();
             UnitCreater unitB = new Barracks();
 
-            FactoryMethod.Unit marineA = unitA.CreateUnit("마린A");
-            FactoryMethod.Unit marineB = unitA.CreateUnit("마린B");
+            Unit marineA = unitA.CreateUnit("마린A");
+            Unit marineB = unitA.CreateUnit("마린B");
 
             marineA.Move($"{marineA} : 12시 미네랄 뒤");
             marineB.Move($"{marineB} : {marineA.Name} 방향으로 이동중");
@@ -69,7 +72,7 @@ namespace DesignPattenExample
         /// <summary>
         /// 추상 팩토리 패턴 예제
         /// </summary>
-        static void RunAbstractFactoryPatten()
+        static void RunAbstractFactoryPattren()
         {
             /*
              * 정의.
@@ -99,13 +102,13 @@ namespace DesignPattenExample
 
             Worker workerB = mainCenterBuildingB.CreateWorker();
             workerB.DigMinerals();
-            
+
         }
 
         /// <summary>
         /// 어댑터 패턴 예제
         /// </summary>
-        static void RunAdapterPatten()
+        static void RunAdapterPattren()
         {
             /*
              * 정의.
@@ -131,7 +134,7 @@ namespace DesignPattenExample
         /// <summary>
         /// 데코레이터 패턴
         /// </summary>
-        static void RunDecoratorPatten()
+        static void RunDecoratorPattren()
         {
             /*
             * 정의.
@@ -155,7 +158,7 @@ namespace DesignPattenExample
             Console.WriteLine($"{cafeMocha.GetDescription()}, {cafeMocha.Cost()}");
         }
 
-        static void RunFacadePatten()
+        static void RunFacadePattren()
         {
             /*
              * 정의.
