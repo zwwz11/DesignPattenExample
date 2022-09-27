@@ -5,8 +5,10 @@ using DesignPatternExample.Adapter;
 using DesignPatternExample.Decorator;
 using DesignPatternExample.Facade;
 using DesignPatternExample.FactoryMethod;
+using DesignPatternExample.Observer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -19,8 +21,9 @@ namespace DesignPatternExample
     {
         static void Main(string[] args)
         {
-            RunFacadePattren();
+            ObserverPattren();
         }
+
 
         /// <summary>
         /// 싱글톤 패턴 예제 
@@ -158,6 +161,9 @@ namespace DesignPatternExample
             Console.WriteLine($"{cafeMocha.GetDescription()}, {cafeMocha.Cost()}");
         }
 
+        /// <summary>
+        /// 퍼사드 패턴
+        /// </summary>
         static void RunFacadePattren()
         {
             /*
@@ -169,12 +175,43 @@ namespace DesignPatternExample
              * 아메리카노와 다른 음료를 만드려면 여러 객체를 생성하여 조합하여야함.
              * 그 일련의 과정을 CoffeeMachine 객체 내부적으로 동작하도록 되어있으며 호출만 하면됨.
              */
+
             CoffeeMachine coffeeMachine = new CoffeeMachine();
             Beverage americano = coffeeMachine.MakeAmericano();
             Beverage cafeLatte = coffeeMachine.MakeCafeLatte();
 
             Console.WriteLine($"아메리카노 : {americano.GetDescription()} / 가격 : {americano.Cost()}");
             Console.WriteLine($"카페라떼   : {cafeLatte.GetDescription()} / 가격 : {cafeLatte.Cost()}");
+        }
+
+        /// <summary>
+        /// 옵저버 패턴
+        /// </summary>
+        static void ObserverPattren()
+        {
+            /*
+             * 정의.
+             * 하나의 객체의 상태가 바뀌면 그 객체에 의존하는 다른 객체들에게 연락이가고 자동으로 내용이 갱신되는 방식.
+             * 일대다 의존성을 정의.
+             * 
+             * 코드 설명.
+             * ConcreateSubject 객체는 ISubject 인터페이스의 기능을 구현한다 
+             * 예를 들어 Screen객체를 Add, Remove 기능, 변경을 알리는 Notify
+             * Screen을 상속받은 객체들은 ISubject를 의존주입 받으며 subject의 변화에 따라 내용이 변경된다.
+             */
+
+
+            ConcreateSubject subject = new ConcreateSubject();
+            UserScreen userScreen = new UserScreen(subject);
+            ClientScreen clientScreen = new ClientScreen(subject);
+            subject.AddScreen(userScreen);
+            subject.AddScreen(clientScreen);
+
+
+            subject.Price = 5000;
+            subject.Notify();
+            subject.Price = 10000;
+            subject.Notify();
         }
     }
 }
